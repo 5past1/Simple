@@ -19,11 +19,11 @@ void scan_port(const char host[], int port) {
 
     if (connect(sock, (struct sockaddr*)&server, sizeof(server)) < 0) {
         // Port is closed
-        close(sock);
-        return;
+        printf("Port %d is closed\n", port);
+    } else {
+        printf("Port %d is open\n", port);
     }
 
-    printf("Port %d is open\n", port);
     close(sock);
 }
 
@@ -33,6 +33,7 @@ int main() {
 
     while (1) {
         printf("1. Scan all ports\n");
+        printf("2. Scan specific port\n");
         printf("5. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
@@ -46,6 +47,15 @@ int main() {
                     scan_port(host, port);
                 }
 
+                break;
+            case 2:
+                printf("Enter the IP address to scan: ");
+                scanf("%s", host);
+
+                printf("Enter the port to scan: ");
+                scanf("%d", &port);
+
+                scan_port(host, port);
                 break;
             case 5:
                 printf("Exiting...\n");
