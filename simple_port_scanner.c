@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include <unistd.h>
 #include <arpa/inet.h>
+#include <unistd.h>
 
 void scan_port(const char host[], int port) {
     int sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -18,11 +18,12 @@ void scan_port(const char host[], int port) {
     server.sin_port = htons(port);
 
     if (connect(sock, (struct sockaddr*)&server, sizeof(server)) < 0) {
-        printf("Port %d is closed\n", port);
-    } else {
-        printf("Port %d is open\n", port);
+        // Port is closed
+        close(sock);
+        return;
     }
 
+    printf("Port %d is open\n", port);
     close(sock);
 }
 
