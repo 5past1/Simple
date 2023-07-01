@@ -4,6 +4,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <string.h>
 
 void scan_port(const char host[], int port) {
     int sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -30,11 +31,13 @@ void scan_port(const char host[], int port) {
 int main() {
     char host[100];
     int choice, first_port, endPort;
+    char port_List[100];
 
     while (1) {
         printf("1. Scan all ports\n");
         printf("2. Scan specific port\n");
         printf("3. Scan a range of ports\n");
+        printf("4. Scan a list of ports\n");
         printf("5. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
@@ -70,6 +73,21 @@ int main() {
 
                 for (int port = first_port; port <= endPort; port++) {
                     scan_port(host, port);
+                }
+
+                break;
+            case 4:
+                printf("Enter the IP address to scan: ");
+                scanf("%s", host);
+
+                printf("Enter the list of ports (separated by space): ");
+                scanf(" %[^\n]", port_List);
+
+                char *token = strtok(port_List, " ");
+                while (token != NULL) {
+                    int port = atoi(token);
+                    scan_port(host, port);
+                    token = strtok(NULL, " ");
                 }
 
                 break;
