@@ -29,11 +29,12 @@ void scan_port(const char host[], int port) {
 
 int main() {
     char host[100];
-    int choice, port;
+    int choice, first_port, endPort;
 
     while (1) {
         printf("1. Scan all ports\n");
         printf("2. Scan specific port\n");
+        printf("3. Scan a range of ports\n");
         printf("5. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
@@ -43,7 +44,7 @@ int main() {
                 printf("Enter the IP address to scan: ");
                 scanf("%s", host);
 
-                for (port = 1; port <= 65535; port++) {
+                for (int port = 1; port <= 65535; port++) {
                     scan_port(host, port);
                 }
 
@@ -53,9 +54,24 @@ int main() {
                 scanf("%s", host);
 
                 printf("Enter the port to scan: ");
-                scanf("%d", &port);
+                scanf("%d", &first_port);
 
-                scan_port(host, port);
+                scan_port(host, first_port);
+                break;
+            case 3:
+                printf("Enter the IP address to scan: ");
+                scanf("%s", host);
+
+                printf("Enter the starting port of the range: ");
+                scanf("%d", &first_port);
+
+                printf("Enter the ending port of the range: ");
+                scanf("%d", &endPort);
+
+                for (int port = first_port; port <= endPort; port++) {
+                    scan_port(host, port);
+                }
+
                 break;
             case 5:
                 printf("Exiting...\n");
@@ -67,4 +83,3 @@ int main() {
 
     return 0;
 }
-
