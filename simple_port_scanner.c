@@ -59,6 +59,8 @@ int main() {
                     scan_port(host, port);
                 }
 
+                printf("Scan completed.\n");
+
                 break;
             case 2:
                 printf("Enter the IP address to scan: ");
@@ -73,6 +75,8 @@ int main() {
                 scanf("%d", &first_port);
 
                 scan_port(host, first_port);
+                printf("Scan completed.\n");
+
                 break;
             case 3:
                 printf("Enter the IP address to scan: ");
@@ -92,6 +96,8 @@ int main() {
                 for (int port = first_port; port <= endPort; port++) {
                     scan_port(host, port);
                 }
+
+                printf("Scan completed.\n");
 
                 break;
             case 4:
@@ -119,6 +125,8 @@ int main() {
                 for (int i = 0; i < port_count; i++) {
                     scan_port(host, ports[i]);
                 }
+
+                printf("Scan completed.\n");
 
                 break;
             case 5:
