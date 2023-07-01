@@ -6,6 +6,12 @@
 #include <unistd.h>
 #include <string.h>
 
+int validate_ip_address(const char ip_address[]) {
+    struct sockaddr_in sa;
+    int result = inet_pton(AF_INET, ip_address, &(sa.sin_addr));
+    return result != 0;
+}
+
 void scan_port(const char host[], int port) {
     int sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock == -1) {
@@ -46,6 +52,11 @@ int main() {
                 printf("Enter the IP address to scan: ");
                 scanf("%s", host);
 
+                if (!validate_ip_address(host)) {
+                    printf("Invalid IP address. Please try again.\n");
+                    break;
+                }
+
                 for (int port = 1; port <= 65535; port++) {
                     scan_port(host, port);
                 }
@@ -55,6 +66,11 @@ int main() {
                 printf("Enter the IP address to scan: ");
                 scanf("%s", host);
 
+                if (!validate_ip_address(host)) {
+                    printf("Invalid IP address. Please try again.\n");
+                    break;
+                }
+
                 printf("Enter the port to scan: ");
                 scanf("%d", &first_port);
 
@@ -63,6 +79,11 @@ int main() {
             case 3:
                 printf("Enter the IP address to scan: ");
                 scanf("%s", host);
+
+                if (!validate_ip_address(host)) {
+                    printf("Invalid IP address. Please try again.\n");
+                    break;
+                }
 
                 printf("Enter the starting port of the range: ");
                 scanf("%d", &first_port);
@@ -79,16 +100,21 @@ int main() {
                 printf("Enter the IP address to scan: ");
                 scanf("%s", host);
 
+                if (!validate_ip_address(host)) {
+                    printf("Invalid IP address. Please try again.\n");
+                    break;
+                }
+
                 printf("Enter the list of ports (separated by space): ");
                 scanf(" %[^\n]", port_List);
 
                 int port_count = 0;
                 int ports[100];
 
-                char *token = strtok(port_List, " ");
+                char *token;
+                token = strtok(port_List, " ");
                 while (token != NULL) {
-                    int port = atoi(token);
-                    ports[port_count++] = port;
+                    ports[port_count++] = atoi(token);
                     token = strtok(NULL, " ");
                 }
 
