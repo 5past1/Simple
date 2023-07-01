@@ -24,9 +24,7 @@ void scan_port(const char host[], int port) {
     server.sin_addr.s_addr = inet_addr(host);
     server.sin_port = htons(port);
 
-    if (connect(sock, (struct sockaddr*)&server, sizeof(server)) < 0) {
-        printf("Port %d is closed\n", port);
-    } else {
+    if (connect(sock, (struct sockaddr*)&server, sizeof(server)) == 0) {
         printf("Port %d is open\n", port);
     }
 
