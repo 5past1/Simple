@@ -63,8 +63,8 @@ int main() {
     char input_choice[10];
 
     while (1) {
-	printf("\n\n\n");
-		printf(CYAN "+=======================================+\n");
+        printf("\n\n\n");
+                printf(CYAN "+=======================================+\n");
         printf("|    -- -- Simple Port Scanner -- --    " CYAN "|\n");
         printf("+=======================================+\n");
         printf( CYAN "|" YELLOW " 1. Scan all ports                     " CYAN "|\n");
@@ -72,7 +72,7 @@ int main() {
         printf( CYAN "|" YELLOW " 3. Scan a range of ports              " CYAN "|\n");
         printf( CYAN "|" YELLOW " 4. Scan multiple ports                " CYAN "|\n");
         printf( CYAN "|" YELLOW " 5. Exit                               " CYAN "|\n");
-        printf("+=======================================+" RESET "\n");
+        printf("+=======================================+\n");
         printf( GREEN "Enter your choice: " );
         scanf("%s", input_choice);
 
@@ -88,20 +88,20 @@ int main() {
             case 1:
                 printf( BLUE "Enter the IP address to scan: ");
                 scanf("%s", host);
-		printf("\n");
+                printf("\n");
                 if (!validate_ip_address(host)) {
                     printf( RED "Invalid IP address. Please try again.\n");
                     break;
                 }
-
+				printf( CYAN "\n- - - - - - - - - - - - - - - - - - - - -\n");
                 for (int port = 1; port <= 65535; port++) {
                     int result = scan_port(host, port);
                     if (result == 0) {
                         printf( GREEN "Port %d is open\n", port);
                     }
                 }
-		printf("\n");
-                printf( GREEN "Scan completed.\n");
+                printf( CYAN "- - - - - - - - - - - - - - - - - - - - -\n");
+                printf( GREEN "\nScan completed.\n");
 
                 break;
 
@@ -117,8 +117,8 @@ int main() {
 
                 printf("Enter the port to scan: ");
                 scanf(" %[^\n]", portInput);
-		printf("\n");
-		printf( CYAN "- - - - - - - - - - - - - - - - - - - - - \n");
+                printf("\n");
+                printf( CYAN "- - - - - - - - - - - - - - - - - - - - -\n");
                 token = strtok(portInput, " ");
 
                 while (token != NULL) {
@@ -137,8 +137,9 @@ int main() {
                     }
                     token = strtok(NULL, " ");
                 }
-
-                printf( GREEN "Scan completed.\n");
+                
+                                printf( CYAN "- - - - - - - - - - - - - - - - - - - - -\n");
+                printf( GREEN "\nScan completed.\n");
                 break;
 
             case 3:
@@ -155,15 +156,15 @@ int main() {
 
                 printf("Enter the ending port of the range: ");
                 scanf("%d", &endPort);
-		printf("\n");
+                printf( CYAN "\n- - - - - - - - - - - - - - - - - - - - -\n");
                 for (int port = first_port; port <= endPort; port++) {
                     int result = scan_port(host, port);
                     if (result == 0) {
                         printf( GREEN "Port %d is open\n", port);
                     }
                 }
-
-                printf( GREEN "Scan completed.\n");
+                                printf( CYAN "- - - - - - - - - - - - - - - - - - - - -\n");
+                printf( GREEN "\nScan completed.\n");
 
                 break;
 
@@ -178,7 +179,7 @@ int main() {
 
                 printf("Enter the list of ports (separated by space): ");
                 scanf(" %[^\n]", port_List);
-		printf("\n");
+                printf("\n");
                 int port_count = 0;
                 int ports[100];
 
@@ -192,7 +193,7 @@ int main() {
                     }
                     token = strtok(NULL, " ");
                 }
-
+                                printf( CYAN "\n- - - - - - - - - - - - - - - - - - - - -\n");
                 for (int i = 0; i < port_count; i++) {
                     int result = scan_port(host, ports[i]);
                     if (result == 0) {
@@ -201,8 +202,8 @@ int main() {
                         printf( MAGENTA "Port %d is closed\n", ports[i]);
                     }
                 }
-
-                printf( GREEN "Scan completed.\n");
+                                printf( CYAN "- - - - - - - - - - - - - - - - - - - - -\n");
+                printf( GREEN "\nScan completed.\n");
 
                 break;
 
