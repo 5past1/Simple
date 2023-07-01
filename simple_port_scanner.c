@@ -19,7 +19,6 @@ void scan_port(const char host[], int port) {
     server.sin_port = htons(port);
 
     if (connect(sock, (struct sockaddr*)&server, sizeof(server)) < 0) {
-        // Port is closed
         printf("Port %d is closed\n", port);
     } else {
         printf("Port %d is open\n", port);
@@ -83,11 +82,18 @@ int main() {
                 printf("Enter the list of ports (separated by space): ");
                 scanf(" %[^\n]", port_List);
 
+                int port_count = 0;
+                int ports[100];
+
                 char *token = strtok(port_List, " ");
                 while (token != NULL) {
                     int port = atoi(token);
-                    scan_port(host, port);
+                    ports[port_count++] = port;
                     token = strtok(NULL, " ");
+                }
+
+                for (int i = 0; i < port_count; i++) {
+                    scan_port(host, ports[i]);
                 }
 
                 break;
